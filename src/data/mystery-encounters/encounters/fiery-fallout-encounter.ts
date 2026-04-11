@@ -90,10 +90,10 @@ export const FieryFalloutEncounter: MysteryEncounter = MysteryEncounterBuilder.w
           isBoss: false,
           gender: Gender.MALE,
           tags: [BattlerTagType.MYSTERY_ENCOUNTER_POST_SUMMON],
-          mysteryEncounterBattleEffects: (pokemon: Pokemon) => {
+          mysteryEncounterBattleEffects: (pkmn: Pokemon) => {
             globalScene.phaseManager.unshiftNew(
               "StatStageChangePhase",
-              pokemon.getBattlerIndex(),
+              pkmn.getBattlerIndex(),
               true,
               [Stat.SPDEF, Stat.SPD],
               1,
@@ -105,10 +105,10 @@ export const FieryFalloutEncounter: MysteryEncounter = MysteryEncounterBuilder.w
           isBoss: false,
           gender: Gender.FEMALE,
           tags: [BattlerTagType.MYSTERY_ENCOUNTER_POST_SUMMON],
-          mysteryEncounterBattleEffects: (pokemon: Pokemon) => {
+          mysteryEncounterBattleEffects: (pkmn: Pokemon) => {
             globalScene.phaseManager.unshiftNew(
               "StatStageChangePhase",
-              pokemon.getBattlerIndex(),
+              pkmn.getBattlerIndex(),
               true,
               [Stat.SPDEF, Stat.SPD],
               1,

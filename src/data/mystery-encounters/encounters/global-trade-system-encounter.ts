@@ -610,11 +610,6 @@ function doPokemonTradeSequence(tradedPokemon: PlayerPokemon, receivedPokemon: P
     const tradeContainer = globalScene.fieldUI.getByName("Trade Background") as Phaser.GameObjects.Container;
     const tradeBaseBg = tradeContainer.getByName("Trade Background Image") as Phaser.GameObjects.Image;
 
-    let tradedPokemonSprite: Phaser.GameObjects.Sprite;
-    let tradedPokemonTintSprite: Phaser.GameObjects.Sprite;
-    let receivedPokemonSprite: Phaser.GameObjects.Sprite;
-    let receivedPokemonTintSprite: Phaser.GameObjects.Sprite;
-
     const getPokemonSprite = () => {
       const ret = globalScene.addPokemonSprite(
         tradedPokemon,
@@ -629,10 +624,17 @@ function doPokemonTradeSequence(tradedPokemon: PlayerPokemon, receivedPokemon: P
       return ret;
     };
 
-    tradeContainer.add((tradedPokemonSprite = getPokemonSprite()));
-    tradeContainer.add((tradedPokemonTintSprite = getPokemonSprite()));
-    tradeContainer.add((receivedPokemonSprite = getPokemonSprite()));
-    tradeContainer.add((receivedPokemonTintSprite = getPokemonSprite()));
+    const tradedPokemonSprite: Phaser.GameObjects.Sprite = getPokemonSprite();
+    const tradedPokemonTintSprite: Phaser.GameObjects.Sprite = getPokemonSprite();
+    const receivedPokemonSprite: Phaser.GameObjects.Sprite = getPokemonSprite();
+    const receivedPokemonTintSprite: Phaser.GameObjects.Sprite = getPokemonSprite();
+
+    tradeContainer.add([
+      tradedPokemonSprite,
+      tradedPokemonTintSprite,
+      receivedPokemonSprite,
+      receivedPokemonTintSprite,
+    ]);
 
     tradedPokemonSprite.setAlpha(0);
     tradedPokemonTintSprite.setAlpha(0);
@@ -641,7 +643,7 @@ function doPokemonTradeSequence(tradedPokemon: PlayerPokemon, receivedPokemon: P
     receivedPokemonTintSprite.setVisible(false);
     receivedPokemonTintSprite.setTintFill(getPokeballTintColor(receivedPokemon.pokeball));
 
-    [tradedPokemonSprite, tradedPokemonTintSprite].map(sprite => {
+    [tradedPokemonSprite, tradedPokemonTintSprite].forEach(sprite => {
       const spriteKey = tradedPokemon.getSpriteKey(true);
       try {
         sprite.play(spriteKey);
@@ -659,7 +661,7 @@ function doPokemonTradeSequence(tradedPokemon: PlayerPokemon, receivedPokemon: P
       sprite.setPipelineData("spriteKey", tradedPokemon.getSpriteKey());
       sprite.setPipelineData("shiny", tradedPokemon.shiny);
       sprite.setPipelineData("variant", tradedPokemon.variant);
-      ["spriteColors", "fusionSpriteColors"].map(k => {
+      ["spriteColors", "fusionSpriteColors"].forEach(k => {
         if (tradedPokemon.summonData.speciesForm) {
           k += "Base";
         }
@@ -667,7 +669,7 @@ function doPokemonTradeSequence(tradedPokemon: PlayerPokemon, receivedPokemon: P
       });
     });
 
-    [receivedPokemonSprite, receivedPokemonTintSprite].map(sprite => {
+    [receivedPokemonSprite, receivedPokemonTintSprite].forEach(sprite => {
       const spriteKey = receivedPokemon.getSpriteKey(true);
       try {
         sprite.play(spriteKey);
@@ -685,7 +687,7 @@ function doPokemonTradeSequence(tradedPokemon: PlayerPokemon, receivedPokemon: P
       sprite.setPipelineData("spriteKey", receivedPokemon.getSpriteKey());
       sprite.setPipelineData("shiny", receivedPokemon.shiny);
       sprite.setPipelineData("variant", receivedPokemon.variant);
-      ["spriteColors", "fusionSpriteColors"].map(k => {
+      ["spriteColors", "fusionSpriteColors"].forEach(k => {
         if (receivedPokemon.summonData.speciesForm) {
           k += "Base";
         }
