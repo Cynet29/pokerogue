@@ -10,8 +10,11 @@ import { initBiomeBgmLoopPoints } from "#init/init-biome-bgm-loop-points";
 import { initBiomeDepths } from "#init/init-biome-depths";
 import { initBiomes } from "#init/init-biomes";
 import { initCatchableSpecies } from "#init/init-catchable-species";
-import { initModifierPools } from "#modifiers/init-modifier-pools";
-import { initModifierTypes } from "#modifiers/modifier-type";
+import { initHeldItems } from "#items/all-held-items";
+import { initTrainerItems } from "#items/all-trainer-items";
+import { initHeldItemPools } from "#items/init-held-item-pools";
+import { initRewardPools } from "#items/init-reward-pools";
+import { initTrainerItemPools } from "#items/init-trainer-item-pools";
 import { initMoves } from "#moves/move";
 import { initMysteryEncounters } from "#mystery-encounters/mystery-encounters";
 import { initAchievements } from "#system/achv";
@@ -20,10 +23,9 @@ import { initStatsKeys } from "#ui/game-stats-ui-handler";
 
 export function initializeGame() {
   initBiomeBgmLoopPoints();
-  initModifierTypes();
-  initModifierPools();
-  initAchievements();
+  initItems();
   initVouchers();
+  initAchievements();
   initStatsKeys();
   initPokemonPrevolutions();
   initPokemonStarters();
@@ -37,4 +39,15 @@ export function initializeGame() {
   initAbilities();
   initChallenges();
   initMysteryEncounters();
+}
+
+/**
+ * Sub-method to initialize all the item-related code.
+ */
+function initItems() {
+  initHeldItems();
+  initHeldItemPools();
+  initTrainerItems();
+  initTrainerItemPools();
+  initRewardPools();
 }

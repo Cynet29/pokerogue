@@ -1,5 +1,6 @@
-/*
- * A collection of custom utility types that aid in type checking and ensuring strict type conformity
+/**
+ * A collection of custom utility types that aid in type checking and ensuring strict type conformity.
+ * @module
  */
 
 import type { AbAttr } from "#abilities/ab-attrs";

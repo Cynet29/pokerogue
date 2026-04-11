@@ -25,6 +25,7 @@ import type { ArenaTagType } from "#enums/arena-tag-type";
 import type { BattlerIndex } from "#enums/battler-index";
 import { BiomeId } from "#enums/biome-id";
 import { BiomePoolTier } from "#enums/biome-pool-tier";
+import { HeldItemEffect } from "#enums/held-item-effect";
 import { CommonAnim } from "#enums/move-anims-common";
 import type { MoveId } from "#enums/move-id";
 import type { PokemonType } from "#enums/pokemon-type";
@@ -34,7 +35,6 @@ import { TrainerType } from "#enums/trainer-type";
 import { WeatherType } from "#enums/weather-type";
 import { TagAddedEvent, TagRemovedEvent, TerrainChangedEvent, WeatherChangedEvent } from "#events/arena";
 import type { Pokemon } from "#field/pokemon";
-import { FieldEffectModifier } from "#modifiers/modifier";
 import type { Move } from "#moves/move";
 import type { ArenaPokemonPools, TrainerPools } from "#types/biomes";
 import type { Constructor } from "#types/common";
@@ -43,6 +43,7 @@ import type { AbstractConstructor, Mutable } from "#types/type-helpers";
 import { coerceArray } from "#utils/array";
 import { NumberHolder, randSeedInt, randSeedItem } from "#utils/common";
 import { enumValueToKey, getEnumValues } from "#utils/enums";
+import { applyHeldItems } from "#utils/items";
 import { getPokemonSpecies } from "#utils/pokemon-utils";
 import { weightedPick } from "#utils/random";
 import { inSpeedOrder } from "#utils/speed-order-generator";
@@ -276,7 +277,7 @@ export class Arena {
 
     if (user != null) {
       weatherDuration.value = 5;
-      globalScene.applyModifier(FieldEffectModifier, user.isPlayer(), user, weatherDuration);
+      applyHeldItems(HeldItemEffect.FIELD_EFFECT, { pokemon: user, fieldDuration: weatherDuration });
     }
 
     this.weather = weather ? new Weather(weather, weatherDuration.value, weatherDuration.value) : null;
@@ -399,7 +400,7 @@ export class Arena {
 
     if (user != null) {
       terrainDuration.value = 5;
-      globalScene.applyModifier(FieldEffectModifier, user.isPlayer(), user, terrainDuration);
+      applyHeldItems(HeldItemEffect.FIELD_EFFECT, { pokemon: user, fieldDuration: terrainDuration });
     }
 
     this.terrain = terrain ? new Terrain(terrain, terrainDuration.value, terrainDuration.value) : null;
