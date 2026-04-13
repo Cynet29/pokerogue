@@ -101,11 +101,11 @@ export const UncommonBreedEncounter: MysteryEncounter = MysteryEncounterBuilder.
           dataSource: new PokemonData(pokemon),
           isBoss: false,
           tags: [BattlerTagType.MYSTERY_ENCOUNTER_POST_SUMMON],
-          mysteryEncounterBattleEffects: (pokemon: Pokemon) => {
+          mysteryEncounterBattleEffects: (pkmn: Pokemon) => {
             queueEncounterMessage(`${namespace}:option.1.statBoost`);
             globalScene.phaseManager.unshiftNew(
               "StatStageChangePhase",
-              pokemon.getBattlerIndex(),
+              pkmn.getBattlerIndex(),
               true,
               statChangesForBattle,
               1,
