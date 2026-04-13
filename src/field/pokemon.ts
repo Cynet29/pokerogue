@@ -5953,6 +5953,8 @@ export class PlayerPokemon extends Pokemon {
       } else {
         this.moveset = [];
       }
+
+      applyChallenges(ChallengeType.MOVESET_MODIFY, this);
     }
     this.generateCompatibleTms();
   }
@@ -6015,6 +6017,8 @@ export class PlayerPokemon extends Pokemon {
         this.compatibleTms.push(moveId);
       }
     }
+
+    applyChallenges(ChallengeType.PLAYER_TM_COMPATIBILITY, this);
   }
 
   /**
@@ -6547,6 +6551,8 @@ export class EnemyPokemon extends Pokemon {
           255,
         );
       }
+
+      applyChallenges(ChallengeType.MOVESET_MODIFY, this);
     }
 
     this.aiType = boss || this.hasTrainer() ? AiType.SMART : AiType.SMART_RANDOM;
