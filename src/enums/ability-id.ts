@@ -621,4 +621,20 @@ export enum AbilityId {
   TERAFORM_ZERO,
   /** {@link https://bulbapedia.bulbagarden.net/wiki/Poison_Puppeteer_(ability) | Source} */
   POISON_PUPPETEER,
+  /** {@link https://bulbapedia.bulbagarden.net/wiki/Piercing_Drill_(ability) | Source} */
+  PIERCING_DRILL,
+  /** {@link https://bulbapedia.bulbagarden.net/wiki/Dragonize_(ability) | Source} */
+  DRAGONIZE,
+  /** Unknown ability for ZA megas */
+  ABILITY_313,
+  /** Unknown ability for ZA megas */
+  ABILITY_314,
+  /** {@link https://bulbapedia.bulbagarden.net/wiki/Mega_Sol_(ability) | Source} */
+  MEGA_SOL,
+  /** Unknown ability for ZA megas */
+  ABILITY_316,
+  /** Unknown ability for ZA megas */
+  ABILITY_317,
+  /** {@link https://bulbapedia.bulbagarden.net/wiki/Spicy_Spray_(ability) | Source} */
+  SPICY_SPRAY,
 }
