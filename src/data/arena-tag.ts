@@ -1201,7 +1201,7 @@ export class TrickRoomTag extends RoomArenaTag {
 }
 
 /**
- * Arena Tag class for {@link https://bulbapedia.bulbagarden.net/wiki/Gravity_(move) Gravity}.
+ * Arena Tag class for {@link https://bulbapedia.bulbagarden.net/wiki/Gravity_(move) | Gravity}.
  * Grounds all Pokémon on the field, including Flying-types and those with
  * {@linkcode AbilityId.LEVITATE} for the duration of the arena tag, usually 5 turns.
  */
@@ -1221,25 +1221,30 @@ export class GravityTag extends SerializableArenaTag {
 
   onAdd(quiet = false): void {
     super.onAdd(quiet);
-    for (const pokemon of inSpeedOrder(ArenaTagSide.BOTH)) {
-      if (pokemon !== null) {
-        const wasGrounded = pokemon.isGrounded();
 
-        pokemon.removeTag(BattlerTagType.FLOATING);
-        pokemon.removeTag(BattlerTagType.TELEKINESIS);
-        if (pokemon.getTag(BattlerTagType.FLYING)) {
-          pokemon.addTag(BattlerTagType.INTERRUPTED);
-        }
-        if (!wasGrounded) {
-          globalScene.phaseManager.queueMessage(
-            i18next.t("arenaTag:gravityGroundsPokemon", {
-              pokemonNameWithAffix: getPokemonNameWithAffix(pokemon),
-            }),
-          );
-        }
+    // Remove all flying-related effects from all on-field Pokemon, displaying a message for each one
+    // that was airborne prior to move use.
+    for (const pokemon of inSpeedOrder(ArenaTagSide.BOTH)) {
+      const wasAirborne = !pokemon.isGrounded(true);
+
+      pokemon.removeTag(BattlerTagType.FLOATING);
+      pokemon.removeTag(BattlerTagType.TELEKINESIS);
+      if (pokemon.getTag(BattlerTagType.FLYING)) {
+        pokemon.removeTag(BattlerTagType.FLYING);
+        pokemon.addTag(BattlerTagType.INTERRUPTED);
+      }
+
+      if (wasAirborne) {
+        globalScene.phaseManager.queueMessage(
+          i18next.t("arenaTag:gravityGroundsPokemon", {
+            pokemonNameWithAffix: getPokemonNameWithAffix(pokemon),
+          }),
+        );
       }
     }
   }
+
+  // TODO: Move accuracy boost to an `apply` method
 }
 
 /**
