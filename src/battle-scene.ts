@@ -3447,7 +3447,8 @@ export class BattleScene extends SceneBase {
         this.party?.map(p => ({
           name: p.name,
           form: p.getFormKey(),
-          types: p.getTypes().map(type => PokemonType[type]),
+          // Ignore alterations from Transform/etc.
+          types: p.getTypes(false, false, false).map(type => PokemonType[type]),
           teraType: PokemonType[p.getTeraType()],
           isTerastallized: p.isTerastallized,
           level: p.level,
@@ -3457,6 +3458,7 @@ export class BattleScene extends SceneBase {
         })) ?? [], // TODO: review if this can be nullish
       modeChain: this.ui?.getModeChain() ?? [],
     };
+    // TODO: Don't store it here
     (window as any).gameInfo = gameInfo;
   }
 
